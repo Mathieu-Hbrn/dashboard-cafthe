@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /dashboard-cafthe/public/
+
+# Si le fichier ou le dossier existe vraiment, on l'affiche normalement
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon, on envoie tout à index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

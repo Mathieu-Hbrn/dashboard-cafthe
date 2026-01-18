@@ -1,0 +1,46 @@
+<?php
+namespace App\Controllers;
+
+use App\Models\Product;
+use PDO;
+
+class ProductController {
+    private $productModel;
+
+    public function __construct(PDO $db) {
+        // Connexion BDD pour le modèle
+        $this->productModel = new Product($db);
+    }
+
+    /**
+     * Action : Afficher la liste des produits
+     */
+    public function list() {
+        // 1. Récupérer les données
+        $products = $this->productModel->findAll();
+
+        // 2. Préparer les données pour la vue
+        foreach ($products as &$p) {
+            $p['prix_ttc'] = $this->productModel->getPriceTTC($p['prix_ht_produit'], $p['id_categorie']);
+        }
+
+        // 3. Charger la vue
+        require_once __DIR__ . '/../../views/products/list.php';
+    }
+
+    public function add() {
+        $message = "";
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->productModel->create($_POST)) {
+                // Redirection vers la liste après succès
+                header('Location: /dashboard-cafthe/public/products/list');
+                exit;
+            } else {
+                $message = "Erreur lors de l'ajout du produit.";
+            }
+        }
+
+        require_once ROOT . '/views/products/add.php';
+    }
+}
