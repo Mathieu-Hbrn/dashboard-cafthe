@@ -4,7 +4,7 @@ if (!defined('ROOT')) {
     define('ROOT', dirname(__DIR__));
 }
 
-// L'AUTOLOADER : Pour charger automatiquement tes classes App\Core, App\Models, etc.
+// L'AUTOLOADER : Pour charger automatiquement les classes App\Core, App\Models, etc.
 spl_autoload_register(function ($class) {
     $classPath = str_replace('App\\', '', $class);
     $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $classPath);
