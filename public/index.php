@@ -31,6 +31,16 @@ if (empty($url[0])) {
     $url = ['products', 'list'];
 }
 
+if ($url[0] === 'auth') {
+    $controller = new \App\Controllers\AuthController($db);
+
+    if (isset($url[1]) && $url[1] === 'logout') {
+        $controller->logout();
+    } else {
+        $controller->login();
+    }
+}
+
 // ROUTAGE : Envoi vers le bon contrôleur
 if ($url[0] === 'products') {
     $controller = new \App\Controllers\ProductController($db);
