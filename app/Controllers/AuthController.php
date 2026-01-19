@@ -20,13 +20,15 @@ class AuthController {
 
             $user = $this->userModel->findByEmail($email);
 
-            // Vérification (ici en clair car ton SQL est ainsi)
+            // Vérification (mots de passe en clair selon votre export SQL)
             if ($user && $password === $user['Mdp_vendeur']) {
                 $_SESSION['user_id'] = $user['id_vendeur'];
                 $_SESSION['user_nom'] = $user['Nom_prenom_vendeur'];
                 $_SESSION['user_role'] = $user['role_vendeur'];
+                // Ligne ajoutée pour permettre la gestion du profil
+                $_SESSION['user_email'] = $user['mail_vendeur'];
 
-                header('Location: /dashboard-cafthe/public/products/list');
+                header('Location: /dashboard-cafthe/public/dashboard');
                 exit;
             } else {
                 $error = "Identifiants incorrects.";

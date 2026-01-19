@@ -8,6 +8,10 @@ class ProductController {
     private $productModel;
 
     public function __construct(PDO $db) {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /dashboard-cafthe/public/auth/login');
+            exit;
+        }
         // Connexion BDD pour le modèle
         $this->productModel = new Product($db);
     }
