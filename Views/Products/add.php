@@ -1,37 +1,50 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter un Produit - CafThé</title>
-    <meta name="robots" content="noindex, nofollow">
-</head>
-<body>
-<h1>Ajouter un nouveau produit</h1>
-<p><a href="/dashboard-cafthe/public/products/list">← Retour à la liste</a></p>
+<?php require_once ROOT . '/views/layout/header.php'; ?>
 
-<form method="POST">
-    <label>Désignation :</label><br>
-    <input type="text" name="designation" required><br><br>
+    <div style="margin-bottom: 20px;">
+        <a href="/dashboard-cafthe/public/products/list">⬅️ Retour au stock</a>
+    </div>
 
-    <label>Catégorie :</label><br>
-    <select name="id_categorie" required>
-        <option value="1">Thé (TVA 5.5%)</option>
-        <option value="2">Café (TVA 5.5%)</option>
-        <option value="3">Accessoires (TVA 20%)</option>
-    </select><br><br>
+    <div class="form-wrapper">
+        <h2>Nouveau Produit</h2>
 
-    <label>Prix HT :</label><br>
-    <input type="number" step="0.01" name="prix_ht" required><br><br>
+        <form action="/dashboard-cafthe/public/products/add" method="POST">
+            <div class="form-group">
+                <label>Désignation du produit</label>
+                <input type="text" name="designation" placeholder="ex: Thé Vert Sencha" required>
+            </div>
 
-    <label>Stock initial :</label><br>
-    <input type="number" name="stock" required><br><br>
+            <div class="form-group" style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label>Catégorie</label>
+                    <select name="id_categorie" required>
+                        <option value="1">Thé</option>
+                        <option value="2">Café</option>
+                        <option value="3">Accessoires</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label>Prix HT (€)</label>
+                    <input type="number" step="0.01" name="prix_ht" placeholder="0.00" required>
+                </div>
+            </div>
 
-    <label>Conditionnement :</label><br>
-    <input type="text" name="conditionnement" placeholder="ex: Boîte de 100g" required><br><br>
+            <div class="form-group">
+                <label>Stock initial</label>
+                <input type="number" name="stock" value="0" required>
+            </div>
 
-    <label>Description :</label><br>
-    <textarea name="description"></textarea><br><br>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" placeholder="Informations complémentaires..."></textarea>
+            </div>
 
-    <button type="submit">Enregistrer le produit</button>
-</form>
-</body>
+            <div class="form-group">
+                <label>Type de conditionnement</label>
+                <input type="text" name="conditionnement" placeholder="ex: Sachet 100g, Boîte...">
+            </div>
+
+            <button type="submit" class="btn btn-block">Enregistrer le produit</button>
+        </form>
+    </div>
+
+<?php require_once ROOT . '/views/layout/footer.php'; ?>

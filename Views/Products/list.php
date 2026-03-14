@@ -1,48 +1,43 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>CafThé - Intranet Vendeur</title>
-    <meta name="robots" content="noindex, nofollow">
-</head>
-<body>
-<h1>Gestion du Catalogue</h1>
-<p><a href="/dashboard-cafthe/public/products/add">➕ Ajouter un produit</a></p>
+<?php require_once ROOT . '/views/layout/header.php'; ?>
 
-<table border="1" width="100%">
-    <thead>
-    <tr>
-        <th>Désignation</th>
-        <th>Catégorie</th>
-        <th>Prix HT</th>
-        <th>Prix TTC</th>
-        <th>Stock</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php if (!empty($products)): ?>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Gestion du Stock</h1>
+        <a href="/dashboard-cafthe/public/products/add" class="btn">+ Ajouter un produit</a>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Catégorie</th>
+            <th>Prix (TTC)</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
         <?php foreach ($products as $p): ?>
-            <tr>
-                <td><?= htmlspecialchars($p['designation_produit']) ?></td>
-                <td><?= htmlspecialchars($p['type_categorie']) ?></td>
-                <td><?= number_format($p['prix_ht_produit'], 2, ',', ' ') ?> €</td>
-                <td><strong><?= number_format($p['prix_ttc'], 2, ',', ' ') ?> €</strong></td>
+            <?php
+            $isLow = ($p['stock_produit'] <= 5);
+            // Utilisation de la logique de TVA : 20% si Accessoires (ID 3), sinon 5.5%
+            $tva = ($p['id_categorie'] == 3) ? 1.20 : 1.055;
+            $prixTTC = $p['prix_ht_produit'] * $tva;
+            ?>
+            <tr class="<?= $isLow ? 'stock-warning' : '' ?>">
+                <td><?= htmlspecialchars($p['designation_produit'] ?? 'Sans nom') ?></td>
+                <td><?= htmlspecialchars($p['type_categorie'] ?? 'Inconnue') ?></td>
+
+                <td><?= number_format($prixTTC, 2, ',', ' ') ?> €</td>
                 <td>
-                    <?= $p['stock_produit'] ?>
-                    <?php if ($p['stock_produit'] <= 5): ?>
-                        <span style="color:red; font-weight:bold;">⚠️ Stock bas</span>
-                    <?php endif; ?>
+                    <span class="stock-badge <?= $isLow ? 'badge-danger' : 'badge-success' ?>">
+                        <?= $p['stock_produit'] ?> en stock
+                    </span>
+                    <?= $isLow ? ' ⚠️' : '' ?>
                 </td>
-                <td>
-                    <a href="#">Modifier</a>
-                </td>
+                <td><a href="#">Modifier</a></td>
             </tr>
         <?php endforeach; ?>
-    <?php else: ?>
-        <tr><td colspan="6" style="text-align:center;">Aucun produit trouvé dans le catalogue.</td></tr>
-    <?php endif; ?>
-    </tbody>
-</table>
-</body>
-</html>
+        </tbody>
+    </table>
+
+<?php require_once ROOT . '/views/layout/footer.php'; ?>

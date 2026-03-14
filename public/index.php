@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-// --- Racine du projet ---
 if (!defined('ROOT')) {
     define('ROOT', dirname(__DIR__));
 }
 
-// --- Autoloader ---
 spl_autoload_register(function ($class) {
     $classPath = str_replace(['App\\', '\\'], ['', DIRECTORY_SEPARATOR], $class);
     $file = ROOT . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $classPath . '.php';
@@ -15,23 +13,25 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// --- Connexion BDD ---
 try {
     $db = \App\Core\Database::getConnection();
 } catch (\Exception $e) {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// --- Analyse de l'URL ---
 $urlParam = $_GET['url'] ?? '';
 $url = explode('/', filter_var(rtrim($urlParam, '/'), FILTER_SANITIZE_URL));
 
 if (empty($url[0])) {
-    $url = ['products', 'list'];
+    $url = ['dashboard', 'index'];
 }
 
-// --- Routeur (MVC) ---
-if ($url[0] === 'products') {
+// --- Dispatcher (MVC) ---
+if ($url[0] === 'dashboard') {
+    $controller = new \App\Controllers\DashboardController($db);
+    $controller->index();
+}
+elseif ($url[0] === 'products') {
     $controller = new \App\Controllers\ProductController($db);
     if (isset($url[1]) && $url[1] === 'add') {
         $controller->add();
@@ -49,15 +49,18 @@ elseif ($url[0] === 'auth') {
 }
 elseif ($url[0] === 'orders') {
     $controller = new \App\Controllers\OrderController($db);
-    $controller->list();
+
+    if (isset($url[1]) && $url[1] === 'add') {
+        $controller->add();
+    } elseif (isset($url[1]) && $url[1] === 'view' && isset($url[2])) {
+        $controller->view($url[2]);
+    } else {
+        $controller->list();
+    }
 }
 elseif ($url[0] === 'clients') {
     $controller = new \App\Controllers\ClientController($db);
     $controller->list();
-}
-elseif ($url[0] === 'dashboard') {
-    $controller = new \App\Controllers\DashboardController($db);
-    $controller->index();
 }
 elseif ($url[0] === 'profile') {
     $controller = new \App\Controllers\ProfileController($db);
@@ -65,5 +68,5 @@ elseif ($url[0] === 'profile') {
 }
 else {
     header("HTTP/1.0 404 Not Found");
-    echo "<h1>404 - Page non trouvée</h1>";
+    require_once ROOT . '/views/404.php'; // Optionnel : créer une jolie vue 404
 }

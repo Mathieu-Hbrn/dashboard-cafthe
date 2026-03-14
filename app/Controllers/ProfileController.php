@@ -16,7 +16,6 @@ class ProfileController {
     }
 
     public function edit() {
-        $message = "";
         $error = "";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,18 +23,28 @@ class ProfileController {
             $newPass = $_POST['new_password'];
             $confirmPass = $_POST['confirm_password'];
 
-            // Récupérer l'utilisateur actuel pour vérifier l'ancien mot de passe
-            $currentUser = $this->userModel->findByEmail($_SESSION['user_email'] ?? '');
-            // Note : Assure-toi de stocker 'user_email' en session lors du login
+            $user = $this->userModel->findByEmail($_SESSION['user_email']);
 
-            // Simulation de vérification (ton SQL utilise des mots de passe en clair actuellement)
+            // 1. Vérification de la correspondance des nouveaux mots de passe
             if ($newPass !== $confirmPass) {
                 $error = "Les nouveaux mots de passe ne correspondent pas.";
-            } else {
-                if ($this->userModel->updatePassword($_SESSION['user_id'], $newPass)) {
-                    $message = "Mot de passe mis à jour avec succès !";
+            }
+            // 2. Vérification de l'ancien mot de passe avec password_verify
+            // On ne compare plus avec !== mais avec la fonction de hachage
+            elseif (!password_verify($oldPass, $user['Mdp_vendeur'])) {
+                $error = "L'ancien mot de passe est incorrect.";
+            }
+            // 3. Si tout est bon, on hache et on met à jour
+            else {
+                // Hachage du nouveau mot de passe avec un coût de 10
+                $hashedPassword = password_hash($newPass, PASSWORD_BCRYPT, ['cost' => 10]);
+
+                if ($this->userModel->updatePassword($_SESSION['user_id'], $hashedPassword)) {
+                    $_SESSION['flash_success'] = "Votre mot de passe a été modifié avec succès.";
+                    header('Location: /dashboard-cafthe/public/dashboard');
+                    exit;
                 } else {
-                    $error = "Une erreur est survenue lors de la mise à jour.";
+                    $error = "Une erreur technique est survenue.";
                 }
             }
         }
