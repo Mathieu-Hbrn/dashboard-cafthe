@@ -6,8 +6,8 @@ class Database {
     // Paramètres de connexion
     private $host = 'localhost';
     private $db_name = 'MHOUBRON_';
-    private $username = 'root';
-    private $password = '';
+    private $username = 'Mathieu-Hbrn';
+    private $password = '4t1qY*8f4';
 
     private function __construct() {
         try {

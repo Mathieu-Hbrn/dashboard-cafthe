@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CafThé - Intranet</title>
-    <link rel="stylesheet" href="/dashboard-cafthe/public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <header>
