@@ -35,7 +35,11 @@ elseif ($url[0] === 'products') {
     $controller = new \App\Controllers\ProductController($db);
     if (isset($url[1]) && $url[1] === 'add') {
         $controller->add();
-    } else {
+    } elseif (isset($url[1]) && $url[1] === 'delete' && isset($url[2])) {
+        $controller->delete($url[2]);
+    } elseif (isset($url[1]) && $url[1] === 'edit' && isset($url[2])) {
+        $controller->edit($url[2]);
+    }else {
         $controller->list();
     }
 }
@@ -52,6 +56,10 @@ elseif ($url[0] === 'orders') {
 
     if (isset($url[1]) && $url[1] === 'add') {
         $controller->add();
+    } elseif (isset($url[1]) && $url[1] === 'client' && isset($url[2])) {
+        $controller->clientOrders($url[2]);
+    }elseif (isset($url[1]) && $url[1] === 'updateStatus' && isset($url[2])) {
+        $controller->updateStatus($url[2]);
     } elseif (isset($url[1]) && $url[1] === 'view' && isset($url[2])) {
         $controller->view($url[2]);
     } else {
@@ -60,7 +68,30 @@ elseif ($url[0] === 'orders') {
 }
 elseif ($url[0] === 'clients') {
     $controller = new \App\Controllers\ClientController($db);
-    $controller->list();
+
+    if (isset($url[1]) && $url[1] === 'add') {
+        $controller->add();
+    } elseif (isset($url[1]) && $url[1] === 'edit' && isset($url[2])) {
+        $controller->edit($url[2]);
+    } else {
+        $controller->list();
+    }
+}
+elseif ($url[0] === 'vendeurs') {
+    $controller = new \App\Controllers\VendeurController($db);
+
+    if (isset($url[1]) && $url[1] === 'edit' && isset($url[2])) {
+        $controller->edit($url[2]);
+    }
+    if (isset($url[1]) && $url[1] === 'add') {
+        $controller->add();
+    }
+    elseif (isset($url[1]) && $url[1] === 'delete' && isset($url[2])) {
+        $controller->delete($url[2]);
+    }
+    else {
+        $controller->list();
+    }
 }
 elseif ($url[0] === 'profile') {
     $controller = new \App\Controllers\ProfileController($db);

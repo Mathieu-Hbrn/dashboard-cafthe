@@ -47,4 +47,35 @@ class ProductController {
 
         require_once ROOT . '/views/products/add.php';
     }
+    /**
+     * supprimer un produit
+     */
+    public function delete($id) {
+        if ($this->productModel->delete($id)) {
+            // Redirection vers la liste après suppression
+            header('Location: /dashboard-cafthe/public/products');
+            exit;
+        } else {
+            die("Erreur lors de la suppression du produit.");
+        }
+    }
+    public function edit($id) {
+        // Récupèration du produit
+        $product = $this->productModel->findById($id);
+
+        if (!$product) {
+            die("Produit introuvable.");
+        }
+
+        // Verification et update
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->productModel->update($id, $_POST)) {
+                header('Location: /dashboard-cafthe/public/products');
+                exit;
+            }
+        }
+
+        // 3. On affiche la vue avec les données du produit
+        require_once ROOT . '/views/products/edit.php';
+    }
 }

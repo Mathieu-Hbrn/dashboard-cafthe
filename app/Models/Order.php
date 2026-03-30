@@ -12,14 +12,28 @@ class Order {
     }
 
     // Récupère toutes les commandes pour la liste
-    public function findAll() {
+    public function findAll($status = null) {
         $sql = "SELECT c.*, cl.nom_prenom_client, v.Nom_prenom_vendeur 
-                FROM commande c 
-                JOIN client cl ON c.id_client = cl.id_client 
-                JOIN vendeur v ON c.id_vendeur = v.id_vendeur
-                ORDER BY c.Date_commande DESC";
-        $stmt = $this->db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            FROM commande c
+            JOIN client cl ON c.id_client = cl.id_client
+            JOIN vendeur v ON c.id_vendeur = v.id_vendeur";
+
+        // Ajout pour filtrage par status
+        if ($status) {
+            $sql .= " WHERE c.status_commande = :status";
+        }
+
+        $sql .= " ORDER BY c.Date_commande DESC";
+
+        $stmt = $this->db->prepare($sql);
+
+        if ($status) {
+            $stmt->execute(['status' => $status]);
+        } else {
+            $stmt->execute();
+        }
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     // Récupère une commande spécifique
@@ -86,5 +100,45 @@ class Order {
             $this->db->rollBack();
             return false;
         }
+    }
+    public function updateStatus($id, $status) {
+        // Mise a jour table 'commande'
+        $sql = "UPDATE commande SET status_commande = :status WHERE id_commande = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'status' => $status,
+            'id'     => $id
+        ]);
+    }
+    public function getOrdersByClientId($clientId) {
+        $sql = "SELECT * FROM commande 
+            WHERE id_client = :id 
+            ORDER BY Date_commande DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $clientId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    // Chiffre d'Affaire par Période (Aujourd'hui, Mois, Année)
+    public function getRevenueByPeriod($period = 'day') {
+        $sql = match($period) {
+            'day'   => "SELECT SUM(montant_ttc) as total FROM commande WHERE DATE(Date_commande) = CURDATE()",
+            'month' => "SELECT SUM(montant_ttc) as total FROM commande WHERE MONTH(Date_commande) = MONTH(CURDATE()) AND YEAR(Date_commande) = YEAR(CURDATE())",
+            'year'  => "SELECT SUM(montant_ttc) as total FROM commande WHERE YEAR(Date_commande) = YEAR(CURDATE())",
+        };
+        return $this->db->query($sql)->fetch(PDO::FETCH_ASSOC)['total'] ?? 0;
+    }
+
+    // Top 5 des produits les plus vendus
+    public function getTopProducts() {
+        $sql = "SELECT p.designation_produit, SUM(lc.QuantiteProduitLigne) as total_vendu 
+            FROM lignecommande lc
+            JOIN produit p ON lc.id_produit = p.id_produit
+            GROUP BY p.id_produit, p.designation_produit
+            ORDER BY total_vendu DESC 
+            LIMIT 5";
+
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

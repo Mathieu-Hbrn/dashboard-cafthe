@@ -56,12 +56,15 @@ class OrderController {
             }
         }
 
-        $clients = $clientModel->findAll();
+        $clients = $clientModel->getAll();
         $products = $productModel->findAll();
         require_once ROOT . '/views/orders/add.php';
     }
     public function list() {
-        $orders = $this->orderModel->findAll();
+        $filter = $_GET['status'] ?? null;
+
+        $orders = $this->orderModel->findAll($filter);
+
         require_once ROOT . '/views/orders/list.php';
     }
     public function view($id) {
@@ -74,5 +77,28 @@ class OrderController {
         }
 
         require_once ROOT . '/views/orders/detail.php';
+    }
+    public function updateStatus($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
+            $newStatus = $_POST['status'];
+            if ($this->orderModel->updateStatus($id, $newStatus)) {
+                header('Location: /dashboard-cafthe/public/orders');
+                exit;
+            }
+        }
+    }
+    public function clientOrders($clientId) {
+        // On a besoin du modèle Client pour afficher le nom du client en titre
+        $clientModel = new \App\Models\Client($this->db);
+        $client = $clientModel->getClientById($clientId);
+
+        if (!$client) {
+            header('Location: /dashboard-cafthe/public/clients/list');
+            exit;
+        }
+
+        $orders = $this->orderModel->getOrdersByClientId($clientId);
+
+        require_once ROOT . '/views/orders/client_orders.php';
     }
 }

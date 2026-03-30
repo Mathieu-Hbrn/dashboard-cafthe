@@ -1,32 +1,37 @@
 <?php require_once ROOT . '/views/layout/header.php'; ?>
 
-    <h1>Tableau de Bord</h1>
-    <p>Bienvenue, <strong><?= htmlspecialchars($_SESSION['user_nom']) ?></strong></p>
+<div class="dashboard-grid">
+    <?php if (!empty($low_stock)): ?>
+        <div class="card alert-card">
+            <h3>⚠️ Alertes Stock Bas</h3>
+            <ul>
+                <?php foreach ($low_stock as $item): ?>
+                    <li><strong><?= $item['designation_produit'] ?></strong> : seulement <?= $item['stock_produit'] ?> restants !</li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 
-<?php if (isset($_SESSION['flash_success'])): ?>
-    <div class="alert alert-success"><?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?></div>
-<?php endif; ?>
-
-    <div class="stats">
-        <div class="card"><h3>Produits</h3><p><?= $nbProducts ?></p></div>
-        <div class="card"><h3>Clients</h3><p><?= $nbClients ?></p></div>
-        <div class="card"><h3>Chiffre d'Affaires</h3><p><?= number_format($totalSales, 2, ',', ' ') ?> €</p></div>
+    <div class="stats-row">
+        <div class="stat-box">
+            <span>CA Aujourd'hui</span>
+            <p><?= number_format($rev_today, 2) ?> €</p>
+        </div>
+        <div class="stat-box">
+            <span>CA du Mois</span>
+            <p><?= number_format($rev_month, 2) ?> €</p>
+        </div>
     </div>
 
-    <h2>Dernières Ventes</h2>
-    <table>
-        <thead>
-        <tr><th>Date</th><th>Client</th><th>Montant TTC</th></tr>
-        </thead>
-        <tbody>
-        <?php foreach ($recentOrders as $order): ?>
-            <tr>
-                <td><?= date('d/m/Y', strtotime($order['Date_commande'])) ?></td>
-                <td><?= htmlspecialchars($order['nom_prenom_client']) ?></td>
-                <td><?= number_format($order['montant_ttc'], 2, ',', ' ') ?> €</td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
-
-<?php require_once ROOT . '/views/layout/footer.php'; ?>
+    <div class="card">
+        <h3>🏆 Top 5 Produits</h3>
+        <table>
+            <?php foreach ($top_products as $p): ?>
+                <tr>
+                    <td><?= $p['designation_produit'] ?></td>
+                    <td><strong><?= $p['total_vendu'] ?></strong> ventes</td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>

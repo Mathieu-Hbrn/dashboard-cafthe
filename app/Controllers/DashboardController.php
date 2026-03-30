@@ -15,18 +15,18 @@ class DashboardController {
     }
 
     public function index() {
-        // Récupération des statistiques
-        $nbProducts = $this->db->query("SELECT COUNT(*) FROM produit")->fetchColumn() ?: 0;
-        $nbClients  = $this->db->query("SELECT COUNT(*) FROM client")->fetchColumn() ?: 0;
-        $totalSales = $this->db->query("SELECT SUM(montant_ttc) FROM commande")->fetchColumn() ?: 0;
+        $productModel = new \App\Models\Product($this->db);
+        $orderModel = new \App\Models\Order($this->db);
 
-        // Récupération des dernières ventes
-        $sql = "SELECT co.*, cl.nom_prenom_client 
-                FROM commande co 
-                JOIN client cl ON co.id_client = cl.id_client 
-                ORDER BY co.id_commande DESC LIMIT 5";
-        $recentOrders = $this->db->query($sql)->fetchAll();
+        $data = [
+            'low_stock'    => $productModel->getLowStockAlert(5),
+            'rev_today'    => $orderModel->getRevenueByPeriod('day'),
+            'rev_month'    => $orderModel->getRevenueByPeriod('month'),
+            'top_products' => $orderModel->getTopProducts()
+        ];
+        extract($data);
 
         require_once ROOT . '/views/dashboard/index.php';
     }
+
 }

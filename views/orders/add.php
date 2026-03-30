@@ -5,12 +5,22 @@
 
         <form method="POST" id="order-form">
             <div class="form-group">
-                <label>Sélectionner le Client</label>
-                <select name="id_client" required>
-                    <?php foreach($clients as $c): ?>
-                        <option value="<?= $c['id_client'] ?>"><?= htmlspecialchars($c['nom_prenom_client']) ?></option>
+                <label for="id_client">Sélectionner le client :</label>
+                <select name="id_client" id="id_client" required class="form-control">
+                    <option value="">-- Choisir un client --</option>
+                    <?php foreach ($clients as $c): ?>
+                        <option value="<?= $c['id_client'] ?>">
+                            <?= htmlspecialchars($c['nom_prenom_client']) ?> — [<?= htmlspecialchars($c['Mail_client']) ?>]
+                        </option>
                     <?php endforeach; ?>
                 </select>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1>Répertoire Clients</h1>
+                    <a href="/dashboard-cafthe/public/clients/add"
+                       style="background: #27ae60; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
+                        + Nouveau Client
+                    </a>
+                </div>
             </div>
 
             <hr>

@@ -34,7 +34,14 @@
                     </span>
                     <?= $isLow ? ' ⚠️' : '' ?>
                 </td>
-                <td><a href="#">Modifier</a></td>
+                <td><a href="/dashboard-cafthe/public/products/edit/<?= $p['id_produit'] ?>" class="btn btn-warning">
+                        Modifier
+                    </a>
+                    <a href="/dashboard-cafthe/public/products/delete/<?= $p['id_produit'] ?>"
+                       class="btn btn-danger"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+                        Supprimer
+                    </a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
