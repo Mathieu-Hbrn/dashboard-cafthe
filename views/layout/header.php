@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>CafThé - Intranet</title>
-    <link rel="stylesheet" href="/dashboard-cafthe/public/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
 </head>
 <body>
 <header>
     <div class="logo"><strong>CafThé</strong> Intranet</div>
     <nav>
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="/dashboard-cafthe/public/dashboard">Dashboard</a>
-            <a href="/dashboard-cafthe/public/products">Produits</a>
-            <a href="/dashboard-cafthe/public/clients">Clients</a>
-            <a href="/dashboard-cafthe/public/orders">Ventes</a>
-            <a href="/dashboard-cafthe/public/profile">Mon Profil</a>
-            <a href="/dashboard-cafthe/public/auth/logout" style="color:#e74c3c">Déconnexion</a>
+            <a href="<?= BASE_URL ?>">Accueil</a>
+            <a href="<?= BASE_URL ?>products">Produits</a>
+            <a href="<?= BASE_URL ?>clients">Clients</a>
+            <a href="<?= BASE_URL ?>orders">Ventes</a>
+            <a href="<?= BASE_URL ?>profile">Mon Profil</a>
+            <a href="<?= BASE_URL ?>auth/logout" style="color:#e74c3c">Déconnexion</a>
             <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'Admin'): ?>
                 <li>
-                    <a href="/dashboard-cafthe/public/vendeurs">
+                    <a href="<?= BASE_URL ?>vendeurs">
                         Gestion Personnel
                     </a>
                 </li>

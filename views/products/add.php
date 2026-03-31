@@ -1,13 +1,9 @@
 <?php require_once ROOT . '/views/layout/header.php'; ?>
 
-    <div style="margin-bottom: 20px;">
-        <a href="/dashboard-cafthe/public/products/list">⬅️ Retour au stock</a>
-    </div>
-
     <div class="form-wrapper">
         <h2>Nouveau Produit</h2>
 
-        <form action="/dashboard-cafthe/public/products/add" method="POST">
+        <form action="<?= BASE_URL ?>products/add" method="POST">
             <div class="form-group">
                 <label>Désignation du produit</label>
                 <input type="text" name="designation" placeholder="ex: Thé Vert Sencha" required>
@@ -44,6 +40,7 @@
             </div>
 
             <button type="submit" class="btn btn-block">Enregistrer le produit</button>
+            <a href="<?= BASE_URL ?>products/list" class="btn-back">Annuler et retourner à la liste</a>
         </form>
     </div>
 

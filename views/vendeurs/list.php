@@ -3,7 +3,7 @@
     <h1>Gestion du Personnel</h1>
     <p>Liste des membres de l'entreprise.</p>
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <a href="/dashboard-cafthe/public/vendeurs/add"
+        <a href="<?= BASE_URL ?>vendeurs/add"
            style="background: #27ae60; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
             + Ajouter un membre
         </a>
@@ -31,8 +31,8 @@
                 <td><?= htmlspecialchars($p['mail_vendeur']) ?></td>
                 <td><?= htmlspecialchars($p['Telephone_vendeur']) ?></td>
                 <td>
-                    <a href="/dashboard-cafthe/public/vendeurs/edit/<?= $p['id_vendeur'] ?>">Modifier</a>
-                    <a href="/dashboard-cafthe/public/vendeurs/delete/<?= $p['id_vendeur'] ?>"
+                    <a href="<?= BASE_URL ?>vendeurs/edit/<?= $p['id_vendeur'] ?>">Modifier</a>
+                    <a href="<?= BASE_URL ?>vendeurs/delete/<?= $p['id_vendeur'] ?>"
                        style="color: #e74c3c; margin-left: 10px;"
                        onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');">
                         Supprimer

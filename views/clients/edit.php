@@ -17,7 +17,7 @@
             <textarea name="adresse_client" rows="3" style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc;"><?= $client['adresse_client'] ?></textarea>
 
             <button type="submit">Enregistrer les modifications</button>
-            <a href="/dashboard-cafthe/public/clients/list" class="btn-back">Annuler et retourner à la liste</a>
+            <a href="<?= BASE_URL ?>clients/list" class="btn-back">Annuler et retourner à la liste</a>
         </form>
     </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion - CafThé</title>
-    <link rel="stylesheet" href="/dashboard-cafthe/public/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
 </head>
 <body style="background-color: #f0f2f5; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
 

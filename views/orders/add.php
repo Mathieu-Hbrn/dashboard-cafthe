@@ -16,7 +16,7 @@
                 </select>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h1>Répertoire Clients</h1>
-                    <a href="/dashboard-cafthe/public/clients/add"
+                    <a href="<?= BASE_URL ?>clients/add"
                        style="background: #27ae60; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
                         + Nouveau Client
                     </a>

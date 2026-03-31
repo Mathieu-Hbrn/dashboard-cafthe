@@ -9,7 +9,7 @@ class ProductController {
 
     public function __construct(PDO $db) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard-cafthe/public/auth/login');
+            header('Location: ' . BASE_URL . 'auth/login');
             exit;
         }
         // Connexion BDD pour le modèle
@@ -38,7 +38,7 @@ class ProductController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->productModel->create($_POST)) {
                 // Redirection vers la liste après succès
-                header('Location: /dashboard-cafthe/public/products/list');
+                header('Location: ' . BASE_URL . 'products/list');
                 exit;
             } else {
                 $message = "Erreur lors de l'ajout du produit.";
@@ -53,7 +53,7 @@ class ProductController {
     public function delete($id) {
         if ($this->productModel->delete($id)) {
             // Redirection vers la liste après suppression
-            header('Location: /dashboard-cafthe/public/products');
+            header('Location: ' . BASE_URL . 'products');
             exit;
         } else {
             die("Erreur lors de la suppression du produit.");
@@ -70,7 +70,7 @@ class ProductController {
         // Verification et update
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->productModel->update($id, $_POST)) {
-                header('Location: /dashboard-cafthe/public/products');
+                header('Location: ' . BASE_URL . 'products');
                 exit;
             }
         }

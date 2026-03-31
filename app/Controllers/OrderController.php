@@ -51,7 +51,7 @@ class OrderController {
 
             if ($this->orderModel->save($orderData)) {
                 $_SESSION['flash_success'] = "Vente enregistrée avec succès !";
-                header('Location: /dashboard-cafthe/public/orders');
+                header('Location: ' . BASE_URL . 'orders');
                 exit;
             }
         }
@@ -72,7 +72,7 @@ class OrderController {
         $items = $this->orderModel->getItems($id);
 
         if (!$order) {
-            header('Location: /dashboard-cafthe/public/orders');
+            header('Location: ' . BASE_URL . 'orders');
             exit;
         }
 
@@ -82,7 +82,7 @@ class OrderController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
             $newStatus = $_POST['status'];
             if ($this->orderModel->updateStatus($id, $newStatus)) {
-                header('Location: /dashboard-cafthe/public/orders');
+                header('Location: ' . BASE_URL . 'orders');
                 exit;
             }
         }
@@ -93,7 +93,7 @@ class OrderController {
         $client = $clientModel->getClientById($clientId);
 
         if (!$client) {
-            header('Location: /dashboard-cafthe/public/clients/list');
+            header('Location: ' . BASE_URL . 'clients/list');
             exit;
         }
 

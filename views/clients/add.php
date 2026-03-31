@@ -21,7 +21,7 @@
             <input type="password" name="mdp_client" required>
 
             <button type="submit">Créer le client</button>
-            <a href="/dashboard-cafthe/public/clients/list" class="btn-back">Annuler</a>
+            <a href="<?= BASE_URL ?>clients/list" class="btn-back">Annuler</a>
         </form>
     </div>
 

@@ -20,7 +20,7 @@
             </select>
 
             <button type="submit">Enregistrer les modifications</button>
-            <a href="/dashboard-cafthe/public/vendeurs" class="btn-back">Annuler</a>
+            <a href="<?= BASE_URL ?>vendeurs" class="btn-back">Annuler</a>
         </form>
     </div>
 

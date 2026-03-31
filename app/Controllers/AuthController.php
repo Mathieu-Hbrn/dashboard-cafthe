@@ -26,7 +26,7 @@ class AuthController {
                 $_SESSION['user_role'] = $user['role_vendeur'];
                 $_SESSION['user_email'] = $user['mail_vendeur'];
 
-                header('Location: /dashboard-cafthe/public/dashboard');
+                header('Location: ' . BASE_URL . 'dashboard');
                 exit;
             } else {
                 $error = "Identifiants incorrects.";
@@ -38,7 +38,7 @@ class AuthController {
 
     public function logout() {
         session_destroy();
-        header('Location: /dashboard-cafthe/public/auth/login');
+        header('Location: ' . BASE_URL . 'login');
         exit;
     }
 }

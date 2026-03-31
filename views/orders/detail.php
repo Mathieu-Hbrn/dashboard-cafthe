@@ -25,5 +25,8 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+    <div>
+        <a href="<?= BASE_URL ?>orders/list" class="btn-back">Retour à la liste</a>
+    </div>
 
 <?php require_once ROOT . '/views/layout/footer.php'; ?>

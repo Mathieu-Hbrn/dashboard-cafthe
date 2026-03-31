@@ -9,7 +9,7 @@ class ProfileController {
 
     public function __construct(PDO $db) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard-cafthe/public/auth/login');
+            header('Location: ' . BASE_URL . 'auth/login');
             exit;
         }
         $this->userModel = new User($db);
@@ -41,7 +41,7 @@ class ProfileController {
 
                 if ($this->userModel->updatePassword($_SESSION['user_id'], $hashedPassword)) {
                     $_SESSION['flash_success'] = "Votre mot de passe a été modifié avec succès.";
-                    header('Location: /dashboard-cafthe/public/dashboard');
+                    header('Location: ' . BASE_URL . 'dashboard');
                     exit;
                 } else {
                     $error = "Une erreur technique est survenue.";

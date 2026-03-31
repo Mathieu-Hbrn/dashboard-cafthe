@@ -17,6 +17,6 @@
         <input type="number" name="id_categorie" value="<?= $product['id_categorie'] ?>" required>
 
         <button type="submit">Enregistrer les modifications</button>
-        <a href="/dashboard-cafthe/public/products/list" class="btn-back">Retour à la liste</a>
+        <a href="<?= BASE_URL ?>products/list" class="btn-back">Retour à la liste</a>
     </form>
 </div>

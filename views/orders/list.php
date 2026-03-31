@@ -5,7 +5,7 @@
             <p>Cliquez sur une ligne pour voir le détail.</p>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
-            <form method="GET" action="/dashboard-cafthe/public/orders" style="background: #eee; padding: 10px; border-radius: 5px;">
+            <form method="GET" action="<?= BASE_URL ?>orders" style="background: #eee; padding: 10px; border-radius: 5px;">
                 <input type="hidden" name="url" value="orders"> <select name="status" onchange="this.form.submit()" style="padding: 5px;">
                     <option value="">Tous les statuts</option>
                     <option value="En préparation" <?= ($_GET['status'] ?? '') == 'En préparation' ? 'selected' : '' ?>>En préparation</option>
@@ -14,7 +14,7 @@
                 </select>
             </form>
 
-            <a href="/dashboard-cafthe/public/orders/add" class="btn" style="background-color: #27ae60;">+ Nouvelle Vente Directe</a>
+            <a href="<?= BASE_URL ?>orders/add" class="btn" style="background-color: #27ae60;">+ Nouvelle Vente Directe</a>
         </div>
     </div>
 
@@ -33,14 +33,14 @@
             <?php foreach ($orders as $o): ?>
                 <tr class="clickable-row"
                     style="cursor: pointer;"
-                    onclick="window.location='/dashboard-cafthe/public/orders/view/<?= $o['id_commande'] ?>'">
+                    onclick="window.location='<?= BASE_URL ?>orders/view/<?= $o['id_commande'] ?>'">
 
                     <td><?= date('d/m/Y', strtotime($o['Date_commande'])) ?></td>
                     <td><?= htmlspecialchars($o['nom_prenom_client']) ?></td>
                     <td><?= htmlspecialchars($o['Nom_prenom_vendeur']) ?></td>
 
                     <td onclick="event.stopPropagation();">
-                        <form action="/dashboard-cafthe/public/orders/updateStatus/<?= $o['id_commande'] ?>" method="POST">
+                        <form action="<?= BASE_URL ?>orders/updateStatus/<?= $o['id_commande'] ?>" method="POST">
                             <select name="status" onchange="this.form.submit()" class="status-dropdown">
                                 <option value="En préparation" <?= $o['status_commande'] == 'En préparation' ? 'selected' : '' ?>>En préparation</option>
                                 <option value="En cours" <?= $o['status_commande'] == 'En cours' ? 'selected' : '' ?>>En cours</option>

@@ -1,6 +1,5 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteBase /dashboard-cafthe/public/
 
 # Si le fichier ou le dossier existe vraiment, on l'affiche normalement
 RewriteCond %{REQUEST_FILENAME} !-f

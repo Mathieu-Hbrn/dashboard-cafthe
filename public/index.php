@@ -5,6 +5,13 @@ if (!defined('ROOT')) {
     define('ROOT', dirname(__DIR__));
 }
 
+// Détection automatique de la base URL
+$base_url = ($_SERVER['HTTP_HOST'] === 'localhost')
+    ? '/dashboard-cafthe/public/'
+    : '/';
+
+define('BASE_URL', $base_url);
+
 spl_autoload_register(function ($class) {
     $classPath = str_replace(['App\\', '\\'], ['', DIRECTORY_SEPARATOR], $class);
     $file = ROOT . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $classPath . '.php';

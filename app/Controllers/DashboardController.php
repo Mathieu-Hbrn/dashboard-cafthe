@@ -8,7 +8,7 @@ class DashboardController {
 
     public function __construct(PDO $db) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard-cafthe/public/auth/login');
+            header('Location: ' . BASE_URL . 'auth/login');
             exit;
         }
         $this->db = $db;

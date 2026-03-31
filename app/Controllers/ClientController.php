@@ -10,7 +10,7 @@ class ClientController {
     // Ton index.php fait "new ClientController($db)", donc on reçoit $db ici
     public function __construct(PDO $db) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /dashboard-cafthe/public/auth/login');
+            header('Location: ' . BASE_URL . 'auth/login');
             exit;
         }
 
@@ -34,14 +34,14 @@ class ClientController {
         $client = $this->clientModel->getClientById($id);
 
         if (!$client) {
-            header('Location: /dashboard-cafthe/public/clients/list');
+            header('Location: ' . BASE_URL . 'clients/list');
             exit;
         }
 
         // 2. Si le formulaire est soumis (POST)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->clientModel->updateClient($id, $_POST);
-            header('Location: /dashboard-cafthe/public/clients/list');
+            header('Location: ' . BASE_URL . 'clients/list');
             exit;
         }
 
@@ -51,7 +51,7 @@ class ClientController {
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->clientModel->createClient($_POST)) {
-                header('Location: /dashboard-cafthe/public/clients/list');
+                header('Location: ' . BASE_URL . 'clients/list');
                 exit;
             }
         }

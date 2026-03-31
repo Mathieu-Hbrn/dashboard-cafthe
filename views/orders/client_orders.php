@@ -28,7 +28,7 @@
                         <?= number_format($o['montant_ttc'], 2, ',', ' ') ?> €
                     </td>
                     <td>
-                        <a href="/dashboard-cafthe/public/orders/view/<?= $o['id_commande'] ?>">Détails</a>
+                        <a href="<?= BASE_URL ?>orders/view/<?= $o['id_commande'] ?>">Détails</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -39,5 +39,5 @@
     </table>
 
     <br>
-    <a href="/dashboard-cafthe/public/clients/list" class="btn-back">← Retour aux clients</a>
+    <a href="<?= BASE_URL ?>clients/list" class="btn-back">← Retour aux clients</a>
 </div>

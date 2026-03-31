@@ -2,7 +2,7 @@
 
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h1>Gestion du Stock</h1>
-        <a href="/dashboard-cafthe/public/products/add" class="btn">+ Ajouter un produit</a>
+        <a href="<?= BASE_URL ?>products/add" class="btn">+ Ajouter un produit</a>
     </div>
 
     <table>
@@ -34,10 +34,10 @@
                     </span>
                     <?= $isLow ? ' ⚠️' : '' ?>
                 </td>
-                <td><a href="/dashboard-cafthe/public/products/edit/<?= $p['id_produit'] ?>" class="btn btn-warning">
+                <td><a href="<?= BASE_URL ?>products/edit/<?= $p['id_produit'] ?>" class="btn btn-warning">
                         Modifier
                     </a>
-                    <a href="/dashboard-cafthe/public/products/delete/<?= $p['id_produit'] ?>"
+                    <a href="<?= BASE_URL ?>products/delete/<?= $p['id_produit'] ?>"
                        class="btn btn-danger"
                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
                         Supprimer

@@ -25,7 +25,7 @@
             <small style="color: #7f8c8d;">Le vendeur pourra le modifier plus tard.</small>
 
             <button type="submit">Créer le compte</button>
-            <a href="/dashboard-cafthe/public/vendeurs" class="btn-back">Annuler</a>
+            <a href="<?= BASE_URL ?>vendeurs" class="btn-back">Annuler</a>
         </form>
     </div>
 
