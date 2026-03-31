@@ -19,7 +19,7 @@
         <?php foreach ($products as $p): ?>
             <?php
             $isLow = ($p['stock_produit'] <= 5);
-            // Utilisation de la logique de TVA : 20% si Accessoires (ID 3), sinon 5.5%
+            // Logique TVA : 20% Accessoires, sinon 5.5%
             $tva = ($p['id_categorie'] == 3) ? 1.20 : 1.055;
             $prixTTC = $p['prix_ht_produit'] * $tva;
             ?>

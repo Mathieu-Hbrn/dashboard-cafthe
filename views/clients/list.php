@@ -12,7 +12,10 @@
     <div class="search-container">
         <form action="<?= BASE_URL ?>clients/list" method="GET" class="search-form">
             <input type="text" name="search" placeholder="Rechercher un client (nom, email...)" value="<?= $_GET['search'] ?? '' ?>">
-            <button type="submit">Rechercher</button>
+            <button type="submit"
+                    class="btn btn-warning">
+                Rechercher
+            </button>
             <?php if(isset($_GET['search'])): ?>
                 <a href="<?= BASE_URL ?>clients/list" class="btn-clear">Effacer</a>
             <?php endif; ?>

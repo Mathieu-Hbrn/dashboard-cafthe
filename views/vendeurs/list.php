@@ -31,9 +31,12 @@
                 <td><?= htmlspecialchars($p['mail_vendeur']) ?></td>
                 <td><?= htmlspecialchars($p['Telephone_vendeur']) ?></td>
                 <td>
-                    <a href="<?= BASE_URL ?>vendeurs/edit/<?= $p['id_vendeur'] ?>">Modifier</a>
+                    <a href="<?= BASE_URL ?>vendeurs/edit/<?= $p['id_vendeur'] ?>"
+                       class="btn btn-warning">
+                        Modifier
+                    </a>
                     <a href="<?= BASE_URL ?>vendeurs/delete/<?= $p['id_vendeur'] ?>"
-                       style="color: #e74c3c; margin-left: 10px;"
+                       class="btn btn-danger"
                        onclick="return confirm('Êtes-vous sûr ? Cette action est irréversible.');">
                         Supprimer
                     </a>
