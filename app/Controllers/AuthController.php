@@ -38,7 +38,7 @@ class AuthController {
 
     public function logout() {
         session_destroy();
-        header('Location: ' . BASE_URL . 'login');
+        header('Location: ' . BASE_URL . 'auth/login');
         exit;
     }
 }

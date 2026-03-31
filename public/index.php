@@ -5,11 +5,8 @@ if (!defined('ROOT')) {
     define('ROOT', dirname(__DIR__));
 }
 
-// Détection automatique de la base URL
-$base_url = ($_SERVER['HTTP_HOST'] === 'localhost')
-    ? '/dashboard-cafthe/public/'
-    : '/';
-
+$is_local = ($_SERVER['HTTP_HOST'] === 'localhost');
+$base_url = $is_local ? '/dashboard-cafthe/public/' : '/';
 define('BASE_URL', $base_url);
 
 spl_autoload_register(function ($class) {
@@ -26,10 +23,16 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-$urlParam = $_GET['url'] ?? '';
-$url = explode('/', filter_var(rtrim($urlParam, '/'), FILTER_SANITIZE_URL));
+$requestUri = $_SERVER['REQUEST_URI'];
+$requestPath = $requestUri;
+if (BASE_URL !== '/' && strpos($requestUri, BASE_URL) === 0) {
+    $requestPath = substr($requestUri, strlen(BASE_URL));
+}
+$requestPath = explode('?', $requestPath)[0];
+$requestPath = trim($requestPath, '/');
+$url = explode('/', $requestPath);
 
-if (empty($url[0])) {
+if (empty($url[0]) || $requestPath === '' || $requestPath === '/') {
     $url = ['dashboard', 'index'];
 }
 
@@ -50,11 +53,13 @@ elseif ($url[0] === 'products') {
         $controller->list();
     }
 }
-elseif ($url[0] === 'auth') {
+elseif ($url[0] === 'auth' || $url[0] === 'login') {
     $controller = new \App\Controllers\AuthController($db);
+
     if (isset($url[1]) && $url[1] === 'logout') {
         $controller->logout();
-    } else {
+    }
+    else {
         $controller->login();
     }
 }
