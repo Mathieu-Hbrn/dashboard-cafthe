@@ -5,6 +5,7 @@
         <p>Remplissez les informations pour créer la fiche client.</p>
 
         <form method="POST" class="edit-form">
+    <?= \App\Core\CSRF::csrfField() ?>
             <label>Nom et Prénom :</label>
             <input type="text" name="nom_prenom_client" placeholder="Ex: Alice Martin" required>
 

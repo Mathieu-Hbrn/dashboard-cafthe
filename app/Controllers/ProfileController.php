@@ -19,6 +19,7 @@ class ProfileController {
         $error = "";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             $oldPass = $_POST['old_password'];
             $newPass = $_POST['new_password'];
             $confirmPass = $_POST['confirm_password'];

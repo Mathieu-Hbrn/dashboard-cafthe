@@ -4,6 +4,7 @@
         <h2>Nouveau Produit</h2>
 
         <form action="<?= BASE_URL ?>products/add" method="POST">
+            <?= \App\Core\CSRF::csrfField() ?>
             <div class="form-group">
                 <label>Désignation du produit</label>
                 <input type="text" name="designation" placeholder="ex: Thé Vert Sencha" required>

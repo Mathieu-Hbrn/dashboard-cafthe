@@ -4,6 +4,7 @@
     <h1>Modifier le produit : <?= $product['designation_produit'] ?></h1>
 
     <form method="POST" class="edit-form">
+    <?= \App\Core\CSRF::csrfField() ?>
         <label>Nom du produit :</label>
         <input type="text" name="designation_produit" value="<?= $product['designation_produit'] ?>" required>
 

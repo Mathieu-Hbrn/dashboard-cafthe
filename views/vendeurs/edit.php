@@ -4,6 +4,7 @@
         <h1>Modifier le membre : <?= htmlspecialchars($vendeur['Nom_prenom_vendeur']) ?></h1>
 
         <form method="POST" class="edit-form">
+    <?= \App\Core\CSRF::csrfField() ?>
             <label>Nom et Prénom :</label>
             <input type="text" name="Nom_prenom_vendeur" value="<?= htmlspecialchars($vendeur['Nom_prenom_vendeur']) ?>" required>
 

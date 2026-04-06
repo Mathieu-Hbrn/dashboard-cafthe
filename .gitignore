@@ -7,3 +7,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Fichiers de configuration
+config.php

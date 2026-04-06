@@ -32,6 +32,7 @@ class VendeurController {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             // Optionnel : On pourrait ajouter une vérification ici pour empêcher
             // un admin de se retirer ses propres droits par erreur.
             $this->vendeurModel->updateVendeur($id, $_POST);
@@ -56,6 +57,7 @@ class VendeurController {
 
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             // On pourrait ajouter une vérification si l'email existe déjà ici
             $this->vendeurModel->createVendeur($_POST);
             header('Location: ' . BASE_URL . 'vendeurs');

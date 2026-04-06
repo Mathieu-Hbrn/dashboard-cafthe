@@ -40,6 +40,7 @@ class ClientController {
 
         // 2. Si le formulaire est soumis (POST)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             $this->clientModel->updateClient($id, $_POST);
             header('Location: ' . BASE_URL . 'clients/list');
             exit;
@@ -50,6 +51,7 @@ class ClientController {
     }
     public function add() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             if ($this->clientModel->createClient($_POST)) {
                 header('Location: ' . BASE_URL . 'clients/list');
                 exit;

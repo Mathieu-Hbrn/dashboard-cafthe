@@ -36,6 +36,7 @@ class ProductController {
         $message = "";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             if ($this->productModel->create($_POST)) {
                 // Redirection vers la liste après succès
                 header('Location: ' . BASE_URL . 'products/list');
@@ -69,6 +70,7 @@ class ProductController {
 
         // Verification et update
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             if ($this->productModel->update($id, $_POST)) {
                 header('Location: ' . BASE_URL . 'products');
                 exit;

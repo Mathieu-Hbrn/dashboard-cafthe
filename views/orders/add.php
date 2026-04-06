@@ -4,6 +4,7 @@
         <h2>Nouvelle Vente Directe</h2>
 
         <form method="POST" id="order-form">
+    <?= \App\Core\CSRF::csrfField() ?>
             <div class="form-group">
                 <label for="id_client">Sélectionner le client :</label>
                 <input type="text" id="client-search-input" placeholder="Taper le nom ou l'email pour filtrer..."

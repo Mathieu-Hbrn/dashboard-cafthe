@@ -15,6 +15,7 @@ class AuthController {
         $error = "";
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             $email = trim($_POST['email']);
             $password = trim($_POST['password']);
 

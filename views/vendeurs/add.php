@@ -5,6 +5,7 @@
         <p>Créez un compte pour un nouvel administrateur ou vendeur.</p>
 
         <form method="POST" class="edit-form">
+    <?= \App\Core\CSRF::csrfField() ?>
             <label>Nom et Prénom :</label>
             <input type="text" name="Nom_prenom_vendeur" placeholder="Ex: Jean Dupont" required>
 

@@ -20,6 +20,7 @@
     <?php endif; ?>
 
     <form method="POST">
+    <?= \App\Core\CSRF::csrfField() ?>
         <div class="form-group">
             <label>Adresse Email</label>
             <input type="email" name="email" placeholder="vendeur@cafthe.fr" required autofocus>

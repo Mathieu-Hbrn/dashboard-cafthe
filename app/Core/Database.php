@@ -10,20 +10,24 @@ class Database {
     public static function getConnection() {
         if (self::$instance === null) {
             try {
+                // --- RÉCUPÉRATION DE LA CONFIGURATION ---
+                $configFile = dirname(__DIR__, 2) . '/config.php';
+                if (!file_exists($configFile)) {
+                    die("Fichier de configuration manquant. Veuillez créer le fichier config.php à la racine du projet.");
+                }
+                $configData = require $configFile;
+
                 // --- DÉTECTION AUTOMATIQUE DE L'ENVIRONNEMENT ---
                 if ($_SERVER['HTTP_HOST'] === 'localhost') {
-                    // Paramètres XAMPP local
-                    $host = 'localhost';
-                    $db   = 'MHOUBRON_';
-                    $user = 'root';
-                    $pass = '';
+                    $config = $configData['local'];
                 } else {
-                    // Paramètres Serveur Distant
-                    $host = 'localhost';
-                    $db   = 'MHOUBRON_';
-                    $user = 'Mathieu-Hbrn';
-                    $pass = '4t1qY*8f4';
+                    $config = $configData['production'];
                 }
+
+                $host = $config['host'];
+                $db   = $config['db'];
+                $user = $config['user'];
+                $pass = $config['pass'];
 
                 $charset = 'utf8mb4';
                 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

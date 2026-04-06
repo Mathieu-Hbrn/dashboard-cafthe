@@ -6,6 +6,7 @@
         <?php if($error): ?> <div class="alert alert-danger" style="color:red"><?= $error ?></div> <?php endif; ?>
 
         <form method="POST">
+    <?= \App\Core\CSRF::csrfField() ?>
             <div class="form-group">
                 <label>Ancien mot de passe</label>
                 <input type="password" name="old_password" required>

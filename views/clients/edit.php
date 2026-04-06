@@ -4,6 +4,7 @@
         <h1>Modifier le client : <?= htmlspecialchars($client['nom_prenom_client']) ?></h1>
 
         <form method="POST" class="edit-form">
+    <?= \App\Core\CSRF::csrfField() ?>
             <label>Nom et Prénom :</label>
             <input type="text" name="nom_prenom_client" value="<?= $client['nom_prenom_client'] ?>" required>
 

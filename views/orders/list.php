@@ -41,6 +41,7 @@
 
                     <td onclick="event.stopPropagation();">
                         <form action="<?= BASE_URL ?>orders/updateStatus/<?= $o['id_commande'] ?>" method="POST">
+                            <?= \App\Core\CSRF::csrfField() ?>
                             <select name="status" onchange="this.form.submit()" class="status-dropdown">
                                 <option value="En préparation" <?= $o['status_commande'] == 'En préparation' ? 'selected' : '' ?>>En préparation</option>
                                 <option value="En cours" <?= $o['status_commande'] == 'En cours' ? 'selected' : '' ?>>En cours</option>

@@ -21,6 +21,7 @@ class OrderController {
         $productModel = new Product($this->db);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            \App\Core\CSRF::validate();
             $totalHT = 0;
             $orderData = [
                 'id_client' => $_POST['id_client'],
@@ -80,6 +81,7 @@ class OrderController {
     }
     public function updateStatus($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status'])) {
+            \App\Core\CSRF::validate();
             $newStatus = $_POST['status'];
             if ($this->orderModel->updateStatus($id, $newStatus)) {
                 header('Location: ' . BASE_URL . 'orders');
