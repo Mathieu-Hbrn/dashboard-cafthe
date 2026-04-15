@@ -1,6 +1,5 @@
 <?php
 namespace App\Core;
-
 class CSRF {
     /**
      * Génère un nouveau token CSRF et le stocke en session.
@@ -20,7 +19,6 @@ class CSRF {
         }
         return $_SESSION['csrf_token'];
     }
-
     /**
      * Valide un token CSRF avec celui de la session.
      * Arrête le script si le token est invalide ou absent.
@@ -36,7 +34,6 @@ class CSRF {
             die("Jeton CSRF invalide ou expiré. Veuillez retourner en arrière et rafraîchir la page.");
         }
     }
-
     /**
      * Retourne le code HTML d'un input hidden contenant le token CSRF.
      */

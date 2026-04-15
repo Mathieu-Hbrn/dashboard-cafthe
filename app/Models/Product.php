@@ -68,6 +68,7 @@ class Product {
         return $stmt->execute([$id]);
     }
     public function update($id, $data) {
+        // Génération de la requête
         $sql = "UPDATE produit SET 
             designation_produit = :nom, 
             prix_ht_produit = :prix, 
@@ -75,7 +76,10 @@ class Product {
             id_categorie = :cat 
             WHERE id_produit = :id";
 
+        // Préparation par PDO
         $stmt = $this->db->prepare($sql);
+
+        // Exécution sécurisée avec association des valeurs
         return $stmt->execute([
             'nom'   => $data['designation_produit'],
             'prix'  => $data['prix_ht_produit'],

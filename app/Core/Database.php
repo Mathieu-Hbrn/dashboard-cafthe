@@ -13,7 +13,7 @@ class Database {
                 // --- RÉCUPÉRATION DE LA CONFIGURATION ---
                 $configFile = dirname(__DIR__, 2) . '/config.php';
                 if (!file_exists($configFile)) {
-                    die("Fichier de configuration manquant. Veuillez créer le fichier config.php à la racine du projet.");
+                    die();
                 }
                 $configData = require $configFile;
 

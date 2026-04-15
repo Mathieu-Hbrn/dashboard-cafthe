@@ -36,11 +36,13 @@ if (empty($url[0]) || $requestPath === '' || $requestPath === '/') {
     $url = ['dashboard', 'index'];
 }
 
-// --- Dispatcher (MVC) ---
+// Dispatcher (MVC)
+// Accueil dashboard
 if ($url[0] === 'dashboard') {
     $controller = new \App\Controllers\DashboardController($db);
     $controller->index();
 }
+// Gestion des produits
 elseif ($url[0] === 'products') {
     $controller = new \App\Controllers\ProductController($db);
     if (isset($url[1]) && $url[1] === 'add') {
@@ -53,6 +55,7 @@ elseif ($url[0] === 'products') {
         $controller->list();
     }
 }
+// Identification
 elseif ($url[0] === 'auth' || $url[0] === 'login') {
     $controller = new \App\Controllers\AuthController($db);
 
@@ -63,6 +66,7 @@ elseif ($url[0] === 'auth' || $url[0] === 'login') {
         $controller->login();
     }
 }
+// Gestion des ventes
 elseif ($url[0] === 'orders') {
     $controller = new \App\Controllers\OrderController($db);
 
@@ -78,6 +82,7 @@ elseif ($url[0] === 'orders') {
         $controller->list();
     }
 }
+// Gestion clients
 elseif ($url[0] === 'clients') {
     $controller = new \App\Controllers\ClientController($db);
 
@@ -89,6 +94,7 @@ elseif ($url[0] === 'clients') {
         $controller->list();
     }
 }
+// Gestion des vendeurs
 elseif ($url[0] === 'vendeurs') {
     $controller = new \App\Controllers\VendeurController($db);
 
@@ -105,10 +111,12 @@ elseif ($url[0] === 'vendeurs') {
         $controller->list();
     }
 }
+// Edition profile perso
 elseif ($url[0] === 'profile') {
     $controller = new \App\Controllers\ProfileController($db);
     $controller->edit();
 }
+// Redirection vers la page 404
 else {
     header("HTTP/1.0 404 Not Found");
     require_once ROOT . '/views/404.php'; // Optionnel : créer une jolie vue 404

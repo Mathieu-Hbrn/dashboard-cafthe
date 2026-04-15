@@ -30,13 +30,12 @@ class OrderTest extends TestCase {
             ]
         ];
 
-        // On exécute la sauvegarde
         $result = $this->orderModel->save($data);
 
-        // On vérifie juste si ça a renvoyé true (succès)
+        // Vérification du succes
         $this->assertTrue($result, "Le modèle Order->save() a échoué.");
 
-        // Optionnel : on vérifie manuellement si une ligne a été ajoutée aujourd'hui
+        // Verification si une ligne a été ajoutée aujourd'hui
         $stmt = $this->db->query("SELECT id_commande FROM commande ORDER BY id_commande DESC LIMIT 1");
         $lastId = $stmt->fetchColumn();
 
