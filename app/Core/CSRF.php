@@ -2,7 +2,7 @@
 namespace App\Core;
 class CSRF {
     /**
-     * Génère un nouveau token CSRF et le stocke en session.
+     * Génèration d'un nouveau token CSRF et stockage en session.
      */
     public static function generateToken() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -20,8 +20,8 @@ class CSRF {
         return $_SESSION['csrf_token'];
     }
     /**
-     * Valide un token CSRF avec celui de la session.
-     * Arrête le script si le token est invalide ou absent.
+     * Validation du token CSRF avec celui de la session
+     * sinon die()
      */
     public static function validate() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -35,7 +35,7 @@ class CSRF {
         }
     }
     /**
-     * Retourne le code HTML d'un input hidden contenant le token CSRF.
+     * Retourne le code HTML de l'input hidden contenant le token CSRF.
      */
     public static function csrfField() {
         $token = self::generateToken();

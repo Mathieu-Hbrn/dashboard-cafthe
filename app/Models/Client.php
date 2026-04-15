@@ -66,7 +66,7 @@ class Client
 
         $stmt = $this->db->prepare($sql);
 
-        // On hache le mot de passe par sécurité
+        // Hachage du mot de passe
         $hashedPassword = password_hash($data['mdp_client'], PASSWORD_DEFAULT);
         $hashedPasswordCompat = str_replace('$2y$', '$2a$', $hashedPassword);
 

@@ -69,7 +69,7 @@ class Order
         try {
             $this->db->beginTransaction();
 
-            // Insertion de la commande
+            // Préparation de l'insertion dans la table commande
             $sqlOrder = "INSERT INTO commande (id_client, id_vendeur, Date_commande, status_commande, Montant_ht, montant_ttc) 
                          VALUES (:client, :vendeur, NOW(), 'Validée', :ht, :ttc)";
             $stmtOrder = $this->db->prepare($sqlOrder);
@@ -81,7 +81,7 @@ class Order
             ]);
             $orderId = $this->db->lastInsertId();
 
-            // Insertion des lignes (PrixUnitLigne et QuantiteProduitLigne)
+            // Préparation de l'insertion dans la table lignecommande
             $sqlLine = "INSERT INTO lignecommande (id_commande, id_produit, PrixUnitLigne, QuantiteProduitLigne) 
                         VALUES (:id_o, :id_p, :prix, :qte)";
             $stmtLine = $this->db->prepare($sqlLine);
@@ -97,9 +97,11 @@ class Order
                 $this->db->prepare("UPDATE produit SET stock_produit = stock_produit - :qte WHERE id_produit = :id")
                     ->execute(['qte' => $item['quantity'], 'id' => $item['id']]);
             }
+            // Validation des étapes précédentes
             $this->db->commit();
             return true;
         } catch (Exception $e) {
+            // Si erreur, retour en arrière
             $this->db->rollBack();
             return false;
         }

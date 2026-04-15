@@ -10,14 +10,14 @@ class Database {
     public static function getConnection() {
         if (self::$instance === null) {
             try {
-                // --- RÉCUPÉRATION DE LA CONFIGURATION ---
+                // Récupération de la configuration
                 $configFile = dirname(__DIR__, 2) . '/config.php';
                 if (!file_exists($configFile)) {
                     die();
                 }
                 $configData = require $configFile;
 
-                // --- DÉTECTION AUTOMATIQUE DE L'ENVIRONNEMENT ---
+                // Détection automatique de l'environnement
                 if ($_SERVER['HTTP_HOST'] === 'localhost') {
                     $config = $configData['local'];
                 } else {

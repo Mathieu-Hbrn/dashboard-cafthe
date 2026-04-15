@@ -1,6 +1,5 @@
 <?php
 // Exemple de fichier de configuration.
-// Renommez ce fichier en "config.php" et indiquez vos informations de connexion à la base de données.
 return [
     'local' => [
         'host' => 'localhost',
