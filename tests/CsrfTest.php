@@ -25,7 +25,6 @@ class CsrfTest extends TestCase {
      * Teste si un token est bien généré et n'est pas vide
      */
     public function testTokenIsGenerated() {
-        // On imagine que votre classe a une méthode pour récupérer le token brut
         $token = CSRF::generateToken();
 
         $this->assertNotEmpty($token);

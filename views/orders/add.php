@@ -52,7 +52,7 @@
                     <span>Total HT :</span>
                     <span id="display-ht">0,00 €</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; color: #27ae60;">
+                <div style="display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; color: #155724;">
                     <span>Total TTC :</span>
                     <span id="display-ttc">0,00 €</span>
                 </div>

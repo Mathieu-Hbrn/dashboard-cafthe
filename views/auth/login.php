@@ -32,6 +32,7 @@
         </div>
 
         <button type="submit" class="btn btn-block">Se connecter</button>
+        <button class="btn btn-block" style="margin-top: 20px">Mot de passe oublié</button>
     </form>
 </div>
 
