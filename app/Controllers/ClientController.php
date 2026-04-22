@@ -7,14 +7,12 @@ use PDO;
 class ClientController {
     private $clientModel;
 
-    // Ton index.php fait "new ClientController($db)", donc on reçoit $db ici
     public function __construct(PDO $db) {
         if (!isset($_SESSION['user_id'])) {
             header('Location: ' . BASE_URL . 'auth/login');
             exit;
         }
 
-        // On passe la connexion reçue au Modèle
         $this->clientModel = new Client($db);
     }
 

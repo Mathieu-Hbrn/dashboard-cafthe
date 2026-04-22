@@ -34,7 +34,7 @@ Toutes les requêtes entrantes sont redirigées vers un point d'entrée unique p
 Les communications avec la base de données **MySQL** sont centralisées dans le composant `app/Core/Database.php`.
 
 ### Configuration et Sécurité (config.php)
-Les identifiants de la base de données ne sont plus écrits en dur dans le code source. Ils sont stockés dans un fichier `config.php` à la racine du projet, qui est **exclu de Git** via `.gitignore`.
+Les identifiants de la base de données ne sont pas écrits en dur dans le code source. Ils sont stockés dans un fichier `config.php` à la racine du projet, qui est **exclu de Git** via `.gitignore`.
 Un fichier `config.sample.php` est fourni comme modèle.
 La classe détecte toujours l'environnement d'exécution via `$_SERVER['HTTP_HOST']` pour sélectionner automatiquement le jeu d'identifiants (local ou production) fourni dans le `config.php`.
 
